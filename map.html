@@ -1183,7 +1183,7 @@
         <div id="legend-items" style="display:none; grid-template-columns:1fr 1fr; gap:4px 14px; margin-top:8px;"></div>
     </div>
     <script>
-        // ============ 双层地图数据 ============
+        // ============ 双层地图数据（已去除 security 字段） ============
         const MAP_DATA_LAYER1 = {
             mapData: {
                 title: "迪斯博德 · 行星",
@@ -1200,8 +1200,7 @@
                         ecology: "周边平原地区以农田生态系统为主，种植小麦、蔬菜和果树；城内有多个公园和绿地，常见鸟类、松鼠和小型哺乳动物。河流穿城而过，水质清澈。",
                         monsters: [],
                         keyNPCs: "空、白、史蒂芬妮·多拉、克拉米·杰尔、菲尔·尼尔巴连",
-                        economy: "以贸易和手工业为主，是连接东部联邦和爱尔文·加尔得的重要枢纽。市场出售粮食、纺织品、魔法小物件和情报。",
-                        security: "由人类种自卫队和空白的策略维持秩序，设有城防军和警备队，对犯罪惩罚严厉。"
+                        economy: "以贸易和手工业为主，是连接东部联邦和爱尔文·加尔得的重要枢纽。市场出售粮食、纺织品、魔法小物件和情报。"
                     },
                     {
                         id: "elven_gard",
@@ -1215,8 +1214,7 @@
                         ecology: "生态系统深受魔法影响，植物具有魔力，动物也常带有魔法特性。林中生长着发光的苔藓、魔法果实、能听懂人语的古树，以及各种神奇生物如魔法蝴蝶。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "以魔法物品、药剂、魔法卷轴交易为主，也出口稀有木材和魔力结晶。",
-                        security: "由森精种的魔法守卫维护。"
+                        economy: "以魔法物品、药剂、魔法卷轴交易为主，也出口稀有木材和魔力结晶。"
                     },
                     {
                         id: "eastern_federation",
@@ -1230,8 +1228,7 @@
                         ecology: "位于沿海平原，周边有森林和山脉。城市内绿化良好，郊外有野生动物如野鹿、山猪。海岸线有丰富的渔业资源。",
                         monsters: [],
                         keyNPCs: "初濑伊纲、克拉米·杰尔",
-                        economy: "高科技产业(如通讯、光学)、渔业、林业，以及独特的文化产品(和服、工艺品)。",
-                        security: "兽人种警察部队，利用超凡感官维持治安，犯罪率极低。"
+                        economy: "高科技产业(如通讯、光学)、渔业、林业，以及独特的文化产品(和服、工艺品)。"
                     },
                     {
                         id: "avant_heim",
@@ -1245,8 +1242,7 @@
                         ecology: "高海拔环境，空气稀薄，但天翼种完全适应。堡垒内部有通过魔法维持的生态系统，种植特殊植物和饲养小型幻想生物作为宠物。",
                         monsters: [],
                         keyNPCs: "吉普莉尔、阿兹莉尔、拉斐尔",
-                        economy: "以战斗任务和收集知识为主，不进行常规贸易，但有时会出售从遗迹中获得的宝物。",
-                        security: "天翼种全员皆是战斗力，堡垒外围有警戒结界，闯入者会被视为猎物。"
+                        economy: "以战斗任务和收集知识为主，不进行常规贸易，但有时会出售从遗迹中获得的宝物。"
                     },
                     {
                         id: "oceand",
@@ -1260,8 +1256,7 @@
                         ecology: "海洋生态系统极为丰富，周围有珊瑚礁、海藻森林，各种海洋生物栖息(彩色鱼群、海龟、小型鲸类)。水下部分有发光水母和共生植物。",
                         monsters: [],
                         keyNPCs: "莱拉",
-                        economy: "奥仙德几乎不与任何其它国家进行贸易，而成为一个自给自足的封闭国家。",
-                        security: "由海栖种守卫巡逻，对友善访客开放；但对入侵者会全力驱逐。"
+                        economy: "奥仙德几乎不与任何其它国家进行贸易，而成为一个自给自足的封闭国家。"
                     },
                     {
                         id: "schwi_library",
@@ -1275,8 +1270,7 @@
                         ecology: "室内环境，恒温恒湿，有魔法维持。书架间偶有纸制的魔法生物飞舞，负责整理书籍。",
                         monsters: [],
                         keyNPCs: "吉普莉尔",
-                        economy: "吉普莉尔会收集珍贵书籍，偶尔用复制品与学者交换知识。",
-                        security: "吉普莉尔亲自守护，禁止偷书、毁书，违者将被永久驱逐。"
+                        economy: "吉普莉尔会收集珍贵书籍，偶尔用复制品与学者交换知识。"
                     },
                     {
                         id: "elkia_village",
@@ -1290,8 +1284,7 @@
                         ecology: "农田生态系统，种植小麦、蔬菜，附近森林有野兔、鹿、野猪。村边有小溪流过，水源充足。",
                         monsters: ["野狼", "哥布林"],
                         keyNPCs: "曾帮助空白的老夫妇伊旺和托尔",
-                        economy: "自给自足的小农经济，与艾尔奇亚有少量粮食和手工艺品贸易。",
-                        security: "村民自发组织民兵巡逻，艾尔奇亚军队偶尔会经过维持秩序。"
+                        economy: "自给自足的小农经济，与艾尔奇亚有少量粮食和手工艺品贸易。"
                     },
                     {
                         id: "klami_camp",
@@ -1305,8 +1298,7 @@
                         ecology: "草原生态系统，植被以草地为主，有少量灌木。营地周围放牧着牛羊。",
                         monsters: ["草原狼"],
                         keyNPCs: "克拉米·杰尔、菲尔·尼尔巴连、情报贩子马鲁",
-                        economy: "以情报交易、货物中转和简单贸易为主，也提供临时住宿。",
-                        security: "克拉米雇佣的护卫队(主要是人类种佣兵)，营地内禁止斗殴。"
+                        economy: "以情报交易、货物中转和简单贸易为主，也提供临时住宿。"
                     },
                     {
                         id: "collapse_cave",
@@ -1320,8 +1312,7 @@
                         ecology: "洞穴生态系统，依靠地下水和外界渗入的有机物维持。洞内生长着发光苔藓和真菌，为巨蚁和巨鼠提供食物来源。",
                         monsters: ["变异巨蚁", "变异巨鼠"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "demonic_den",
@@ -1335,8 +1326,7 @@
                         ecology: "城市完全由妖魔种的血肉魔法构建，建筑与活体组织共生。空气中弥漫着甜腻的腐败香气，街道流淌着暗红色的魔力液体。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "以情欲、痛苦和魔物材料为一般等价物。地下交易所流通恶魔之铁、深渊结晶以及被诅咒的古代遗物。",
-                        security: "绝对的弱肉强食，七大贵族划分城区，外来者若无高阶妖魔庇护，将被视为移动的祭品或玩物。"
+                        economy: "以情欲、痛苦和魔物材料为一般等价物。地下交易所流通恶魔之铁、深渊结晶以及被诅咒的古代遗物。"
                     },
                     {
                         id: "old_deus_ruins",
@@ -1350,8 +1340,7 @@
                         ecology: "荒原生态系统，植被稀少，但受残留神力影响，有些区域会有异常现象(如重力异常、植物石化的区域)。空气中偶尔飘过金色的光粒。",
                         monsters: ["神力傀儡", "残留的英灵"],
                         keyNPCs: "偶尔有森精种或天翼种研究者(如吉普莉尔曾来过)",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "phantom_lair",
@@ -1365,8 +1354,7 @@
                         ecology: "极其特殊的生态系统，依靠幻想种的魔力维持。岩石有时像蜡一样柔软，空气中有发光的孢子。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "",
-                        security: "幻想种自身的领域性，它们可能将入侵者变成幻象的一部分，或者直接吞噬。"
+                        economy: ""
                     },
                     {
                         id: "pearl_harbor",
@@ -1380,8 +1368,7 @@
                         ecology: "海岸生态系统，附近有珊瑚礁和海草床，栖息着各种鱼类、贝类和海龟。珍珠养殖场利用浅海湾人工培育珍珠。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "珍珠贸易、渔业、盐业，与艾尔奇亚和奥仙德有固定航线。",
-                        security: "由海栖种巡逻队维持治安，整体较为安全。"
+                        economy: "珍珠贸易、渔业、盐业，与艾尔奇亚和奥仙德有固定航线。"
                     },
                     {
                         id: "dragons_peak",
@@ -1395,8 +1382,7 @@
                         ecology: "高海拔山地生态系统，空气稀薄，气候严寒。植被以耐寒的苔藓和地衣为主。动物多为适应高山的种类，如雪鹫、岩羊，以及一些亚龙种生物（如双足飞龙）。山体周围有强大的魔力场，影响气候，常年暴风雪环绕。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "以龙族收集的财宝与极少数种族（如地精种）进行稀有交易，一般不参与常规贸易。",
-                        security: "由龙精种自身维持，任何未经允许的闯入都会被视为挑衅，遭到龙息洗礼。龙巢外围有结界和陷阱。"
+                        economy: "以龙族收集的财宝与极少数种族（如地精种）进行稀有交易，一般不参与常规贸易。"
                     },
                     {
                         id: "giant_city",
@@ -1410,8 +1396,7 @@
                         ecology: "高海拔山地环境，周围有针叶林和草甸，猎物丰富。巨人们饲养大型牲畜，如猛犸象和巨角鹿。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "狩猎、采集、巨型毛皮贸易，与艾尔奇亚交换铁器和纺织品。",
-                        security: "由巨人战士巡逻，对友善访客开放，但误入领地者可能被驱逐。"
+                        economy: "狩猎、采集、巨型毛皮贸易，与艾尔奇亚交换铁器和纺织品。"
                     },
                     {
                         id: "hardenfell",
@@ -1425,8 +1410,7 @@
                         ecology: "地下部分由金属和齿轮构成，人工照明，空气通过机械循环；地表都市则分布在草原、海面等环境，全部依赖地精种的工程技术。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "机械制造、蒸汽技术、能源输出",
-                        security: "地精种守卫严密，有自动防御机关。"
+                        economy: "机械制造、蒸汽技术、能源输出"
                     },
                     {
                         id: "misty_swamp",
@@ -1440,8 +1424,7 @@
                         ecology: "沼泽生态系统，植被以耐湿的芦苇、苔藓和低矮灌木为主。水中生活着各种两栖生物和昆虫。雾气终年不散，能见度极低。",
                         monsters: ["史莱姆"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "rich_plains",
@@ -1455,8 +1438,7 @@
                         ecology: "温带草原生态系统，植被以高草和野花为主，有少量灌木丛。动物包括野兔、狐狸、平原狼和各种鸟类。",
                         monsters: ["平原狼"],
                         keyNPCs: "",
-                        economy: "农业、畜牧业",
-                        security: "由艾尔奇亚派遣巡逻队维持治安，但夜间需防范狼群。"
+                        economy: "农业、畜牧业"
                     },
                     {
                         id: "endless_ocean",
@@ -1470,8 +1452,7 @@
                         ecology: "海洋生态系统，从阳光充足的表层到黑暗的深海，栖息着各种鱼类、水母、甲壳类以及大型掠食者。",
                         monsters: ["食人鱼", "深海水母", "巨型章鱼", "恐怖鹦鹉螺"],
                         keyNPCs: "",
-                        economy: "渔业、珍珠采集、深海矿藏，但危险系数极高。",
-                        security: "无固定治安，海栖种偶尔巡逻，但对普通船只不提供保护。"
+                        economy: "渔业、珍珠采集、深海矿藏，但危险系数极高。"
                     },
                     {
                         id: "windroar_grassland",
@@ -1485,8 +1466,7 @@
                         ecology: "温带草原生态系统，植被以高草和零星灌木为主。动物种群丰富，包括野马、羚羊、野兔以及多种猛禽和掠食者。",
                         monsters: ["草原狼", "草原豹", "草原狮", "猎鹰"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "vibrant_forest",
@@ -1500,8 +1480,7 @@
                         ecology: "温带森林生态系统，植被以橡树、枫树和各类灌木为主，林间遍布野花和苔藓。动物包括鹿、野兔和各种鸟类。",
                         monsters: ["妖精", "树精", "花妖"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "dragonbreath_ashes",
@@ -1515,8 +1494,7 @@
                         ecology: "地面温度较高，植被以耐热植物和地衣为主。巨型火蚁在此筑巢，以地热和地下真菌为生。",
                         monsters: ["巨型火蚁"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "machine_ruins",
@@ -1530,8 +1508,7 @@
                         ecology: "荒芜的机械废墟，几乎没有自然植被。金属结构之间生长着耐重金属的地衣和苔藓。失控智械是这里唯一的“居民”，它们依靠残存的能量核心驱动。",
                         monsters: ["失控智械"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "nameless_sky_island",
@@ -1545,8 +1522,7 @@
                         ecology: "高海拔岛屿生态系统，植被以耐寒的苔藓和矮小灌木为主。动物包括鸟妖、浮空鱼以及一些小型飞行昆虫。",
                         monsters: ["鸟妖", "浮空鱼"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "deep_mirror_lake",
@@ -1560,8 +1536,7 @@
                         ecology: "淡水湖泊生态系统，湖水清澈，水生植物丰富，鱼类众多。湖岸有湿地，栖息着水鸟和两栖动物。",
                         monsters: ["水怪"],
                         keyNPCs: "",
-                        economy: "",
-                        security: ""
+                        economy: ""
                     },
                     {
                         id: "fairy_home",
@@ -1575,8 +1550,7 @@
                         ecology: "随妖精种的意志变化",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "",
-                        security: "由妖精种自身的幻术结界保护，外来者若无善意引导极易迷失。"
+                        economy: ""
                     },
                     {
                         id: "waystation_phantom",
@@ -1590,8 +1564,7 @@
                         ecology: "位于山区林地，周围有稀疏的树木和灌木，附近有小溪流过。",
                         monsters: [],
                         keyNPCs: "",
-                        economy: "提供住宿、食物、补给，收取货币或情报。",
-                        security: "由驿站管理者维持秩序，禁止争斗。"
+                        economy: "提供住宿、食物、补给，收取货币或情报。"
                     },
                     {
                         id: "divine_pantheon",
@@ -1605,8 +1578,7 @@
                         ecology: "完全由神力构建的生态系统，不存在常规生物。有发光的能量植物，由神力结晶构成。空气中弥漫着神威，普通生物无法生存。元素生物（光元素、雷元素）游弋其中。",
                         monsters: [],
                         keyNPCs: "主神、命运三女神、战神、智慧神等",
-                        economy: "",
-                        security: "岛屿本身处于半位面，难以定位。"
+                        economy: ""
                     },
                     {
                         id: "central_board",
@@ -1664,7 +1636,7 @@
             }
         };
 
-        // 第二层：卫星红月
+        // 第二层：卫星红月（无 security 字段）
         const MAP_DATA_LAYER2 = {
             mapData: {
                 title: "红月 · 卫星",
@@ -1690,8 +1662,7 @@
                         residentFactions: ["月咏种"],
                         nature: "卫星暗面 / 月咏国度",
                         ecology: "低重力环境，表面覆盖着红色月尘和发光水晶。空气稀薄，但月咏种通过魔法维持可呼吸区域。",
-                        economy: "月光结晶、月咏种符文",
-                        security: "没有邀请函的人无法进入红月。"
+                        economy: "月光结晶、月咏种符文"
                     }
                 ],
                 edges: [
@@ -1745,7 +1716,6 @@
             monsters: '怪物',
             residentFactions: '驻留势力',
             populationComposition: '人口构成',
-            security: '治安',
             economy: '经济',
             NPC: 'NPC',
             keyNPCs: '关键NPC',
@@ -1783,7 +1753,7 @@
             'summary', 'physicalConsequences', 'encounters', 'loot'
         ]);
 
-        const WORLDSCAR_ENTRANCES = []; // 红月不再作为世界之痕
+        const WORLDSCAR_ENTRANCES = [];
 
         // ============ 当前层数据 ============
         let mapData = LAYER_CONFIGS[currentLayerIndex].data.mapData;
@@ -2222,7 +2192,7 @@
         function buildLegend() {
             const legendItems = document.getElementById('legend-items');
             const usedTypes = new Set(nodes.map(n => n.type));
-            legendItems.innerHTML = ''; // 清空
+            legendItems.innerHTML = '';
             Object.keys(typeConfig).forEach(type => {
                 if (!usedTypes.has(type)) return;
                 const cfg = typeConfig[type];
@@ -2235,7 +2205,6 @@
                 legendItems.appendChild(item);
             });
 
-            // 特殊标记（如果未来需要可添加）
             const specialSep = document.createElement('div');
             specialSep.style.cssText = 'grid-column:1/-1; border-top:1px solid rgba(200,184,138,0.15); margin:4px 0 2px; padding-top:4px; font-size:11px; color:#c8b88a; font-weight:600; letter-spacing:0.5px;';
             specialSep.textContent = '特殊标记';
@@ -2464,18 +2433,14 @@
             nodeMap = {};
             nodes.forEach(n => { nodeMap[n.id] = n; });
 
-            // 更新标题（可选）
             document.getElementById('map-title').textContent = mapData.title || (layerIdx === 0 ? '迪斯博德 · 行星' : '红月 · 卫星');
 
-            // 重置视图
             viewX = 0; viewY = 0; scale = 0.95;
 
-            // 重建节点和图例
             createNodeElements();
             buildLegend();
             render();
 
-            // 更新按钮样式
             document.querySelectorAll('#layer-switcher .layer-btn').forEach((btn, idx) => {
                 if (idx === layerIdx) {
                     btn.classList.add('active');
@@ -2490,7 +2455,7 @@
         }
         window.switchLayer = switchLayer;
 
-        // ============ 玩家位置标记（简单实现） ============
+        // ============ 玩家位置标记 ============
         let _mvuLocation = { 场所: '', 区域: '', 大陆: '' };
         let lastMatchedNodeId = null;
 
@@ -2588,7 +2553,6 @@
 
         try { window.parent.postMessage({ type: 'map_ready' }, '*'); } catch (e) { }
 
-        // 小地图中绘制玩家位置
         const _origRenderMinimap = renderMinimap;
         renderMinimap = function () {
             _origRenderMinimap();
@@ -2622,7 +2586,6 @@
             minimapCtx.stroke();
         };
 
-        // 初始化
         createNodeElements();
         buildLegend();
         resizeCanvas();
@@ -2642,3 +2605,6 @@
             return this;
         };
     </script>
+</body>
+
+</html>
