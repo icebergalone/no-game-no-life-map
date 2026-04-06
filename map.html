@@ -2440,6 +2440,7 @@
             createNodeElements();
             buildLegend();
             render();
+            updatePlayerLocation();
 
             document.querySelectorAll('#layer-switcher .layer-btn').forEach((btn, idx) => {
                 if (idx === layerIdx) {
