@@ -10945,7 +10945,7 @@ ${CHARACTER_PROFILE_FORMAT_SAMPLE.trim()}
                 if (worldview === '琥珀之剑') {
                     return buildAmberMapEmbedUrl(resolveAmberMapBaseUrl());
                 }
-                if (worldview === '创世回廊' && isDnfMode === true) {
+                if (worldview === 'DNF') {
                     return 'https://tangquanghuy.github.io/dnf/map.html?v=10';
                 }
                 return 'https://icebergalone.github.io/no-game-no-life-map/map.html';
@@ -10971,7 +10971,7 @@ ${CHARACTER_PROFILE_FORMAT_SAMPLE.trim()}
                 const 世界观 = 系统配置.世界观 || '';
                 const isSaoWorldview = 世界观 === '刀剑神域';
                 const isAmberWorldview = 世界观 === '琥珀之剑';
-                const isDnfMode = !!启用DNF副模式;
+                const isDnfMode = 世界观 === 'DNF';
                 const mapIframeSrc = resolveWorldviewMapSrc(世界观, isDnfMode);
                 if (isAmberWorldview) {
                     ensureAmberMapEmbedReady(mapIframeSrc);
