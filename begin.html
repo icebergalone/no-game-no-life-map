@@ -14722,7 +14722,6 @@
                             时间: mvuData.stat_data.世界信息.时间 || '清晨',
                             世界剧情: isAmberWorldview.value ? '布契之夜' : (mvuData.stat_data.世界信息.世界剧情 || ''),
                             世界观: currentWorldviewMvuLabel.value,
-                            启用DNF副模式: enableDnfContent.value,
                             位置: openingLocation
                         };
                         if (!mvuData.stat_data.系统配置) {
@@ -14735,6 +14734,7 @@
                         mvuData.stat_data.系统配置.难度 = effectiveDifficultyKey.value || 'easy';
                         mvuData.stat_data.系统配置.难度名称 = (DIFF_PRESETS[effectiveDifficultyKey.value] || DIFF_PRESETS.easy).label;
                         mvuData.stat_data.系统配置.世界观 = currentWorldviewMvuLabel.value;
+                        mvuData.stat_data.系统配置.启用DNF副模式 = enableDnfContent.value;
                         const existingDialogueBeautify = Array.isArray(mvuData.stat_data.系统配置.对白美化)
                             ? mvuData.stat_data.系统配置.对白美化
                             : [];
