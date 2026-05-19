@@ -10971,7 +10971,7 @@ ${CHARACTER_PROFILE_FORMAT_SAMPLE.trim()}
                 const 世界观 = 系统配置.世界观 || '';
                 const isSaoWorldview = 世界观 === '刀剑神域';
                 const isAmberWorldview = 世界观 === '琥珀之剑';
-                const dnfModeEnabled = !!系统配置?.启用DNF副模式;
+                const dnfModeEnabled = !!系统配置.启用DNF副模式;
                 const mapIframeSrc = resolveWorldviewMapSrc(世界观, dnfModeEnabled);
                 if (isAmberWorldview) {
                     ensureAmberMapEmbedReady(mapIframeSrc);
