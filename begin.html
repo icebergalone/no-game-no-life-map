@@ -6400,38 +6400,6 @@
                             </div>
                         </div>
 
-                        <div v-if="selectedWorldview === 'corridor'"
-                            style="margin-top:20px; padding:14px 16px; border-radius:12px; background:rgba(45,106,79,0.06); border:1px solid rgba(45,106,79,0.16);">
-                            <div style="display:flex; align-items:center; justify-content:space-between;">
-                                <div style="display:flex; align-items:center; gap:8px;">
-                                    <i class="ri-flask-line" style="font-size:1.2rem; color:var(--accent);"></i>
-                                    <span style="font-weight:700;">启用 DNF 扩展内容</span>
-                                    <span style="font-size:0.7rem; color:var(--secondary);">(原版创世回廊开关)</span>
-                                </div>
-                                <label style="display:flex; align-items:center; cursor:pointer; gap:8px;">
-                                    <div style="position:relative; width:44px; height:24px;">
-                                        <input type="checkbox" v-model="enableDnfContent"
-                                            style="opacity:0; width:0; height:0; position:absolute;">
-                                        <div :style="{
-                    position:'absolute', inset:0, borderRadius:'12px', transition:'background 0.2s',
-                    background: enableDnfContent ? 'var(--accent)' : '#dfe6e9'
-                }"></div>
-                                        <div :style="{
-                    position:'absolute', top:'3px', left: enableDnfContent ? '23px' : '3px',
-                    width:'18px', height:'18px', borderRadius:'50%', background:'white',
-                    boxShadow:'0 1px 4px rgba(0,0,0,0.2)', transition:'left 0.2s'
-                }"></div>
-                                    </div>
-                                    <span style="font-size:0.85rem; font-weight:600; color:var(--primary);">
-                                        {{ enableDnfContent ? '已启用' : '已关闭' }}
-                                    </span>
-                                </label>
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--secondary); margin-top:6px;">
-                                开启后，将体验原版创世回廊内容。
-                            </div>
-                        </div>
-
                         <div v-if="selectedWorldview"
                             style="padding:14px 16px; border-radius:12px; background:rgba(45,106,79,0.08); border:1px solid rgba(45,106,79,0.16); color:var(--primary); line-height:1.7;">
                             已选择：<strong>{{ currentWorldviewLabel }}</strong>
@@ -8607,7 +8575,6 @@
                     </template>
 
                     <!-- STEP 6: SUMMARY -->
-
                     <template v-else-if="currentStep === 6">
                         <div class="summary-panel">
                             <div class="summary-avatar"
@@ -8637,14 +8604,6 @@
                                         class="ri-map-pin-line"></i> {{ summarySpawnName }}</span>
                             </div>
 
-                            <!-- DNF确认 -->
-                            <div v-if="selectedWorldview === 'corridor'"
-                                style="margin-bottom: 16px; padding: 8px 12px; background: rgba(45,106,79,0.04); border-radius: 12px;">
-                                <span class="starter-shop-quick-item"
-                                    :style="enableDnfContent ? 'background:rgba(45,106,79,0.15); color:var(--accent);' : 'background:rgba(0,0,0,0.04); color:#666;'">
-                                    <i class="ri-flask-line"></i> DNF 扩展：{{ enableDnfContent ? '已启用' : '已关闭' }}
-                                </span>
-                            </div>
                             <!-- 出生点确认 -->
                             <div
                                 style="text-align:left; background:linear-gradient(135deg, rgba(212,168,83,0.08) 0%, rgba(212,168,83,0.15) 100%); padding:16px 20px; border-radius:12px; margin-bottom:20px; border:1px solid rgba(212,168,83,0.2);">
@@ -9172,7 +9131,6 @@
         createApp({
             setup() {
                 // Steps Configuration
-                const enableDnfContent = ref(false);
                 const steps = [
                     { title: '世界观' },
                     { title: '基本信息' },
@@ -10825,7 +10783,6 @@
                         } : null,
                         starterShopSelection: starterShopSelection.value.slice(),
                         // 开局选择
-                        enableDnfContent: enableDnfContent.value,
                         selectedWorldview: selectedWorldview.value,
                         selectedOpening: selectedOpening.value,
                         customOpeningText: customOpeningText.value,
@@ -10841,11 +10798,6 @@
 
                 // 应用配置到当前状态
                 const applyConfig = (config) => {
-                    if (config.enableDnfContent === undefined) {
-                        enableDnfContent.value = false;
-                    } else {
-                        enableDnfContent.value = config.enableDnfContent;
-                    }
                     if (!config) return;
 
                     const detectedPresetMode = detectPresetModeFromConfig(config);
@@ -10995,7 +10947,6 @@
                     }
 
                     // 开局选择
-                    if (config.enableDnfContent !== undefined) enableDnfContent.value = config.enableDnfContent;
                     if (config.selectedWorldview !== undefined) {
                         selectedWorldview.value = normalizeWorldviewId(config.selectedWorldview);
                     } else if (config.selectedOpening !== undefined) {
@@ -11992,8 +11943,7 @@
                     }
                 });
 
-                // 无 DNF 时的出生点数据
-                const spawnPointDataNoDnf = markRaw({
+                const ngnlSpawnPointData = markRaw({
                     '人类种': {
                         出生点: [
                             { type: '推荐出生点', name: '爱莉·卡', tier: '人类种村庄', levelRange: '1~5', 大陆: '迪司博德', 区域: '爱莉·卡·农田小道', 场所: '农田', desc: '村庄周围的农田和菜园，村民在此耕作，偶尔可以帮忙干农活换取食物。', 周边威胁: '哥布林、野狼。' },
@@ -12092,6 +12042,7 @@
                 const selectedAmberSpawn = ref(null); // 琥珀之剑地图选择的出生点
                 // 开局选择（需提前定义，避免下方计算属性在 setup 阶段触发 TDZ）
                 const WORLDVIEW_CORRIDOR_ID = 'corridor';
+                const WORLDVIEW_XGB_ID = 'xgb';
                 const WORLDVIEW_SAO_ID = 'sao';
                 const WORLDVIEW_AMBER_ID = 'amber';
                 const SAO_INITIAL_OPENING_ID = 'sao_initial_town';
@@ -12536,19 +12487,16 @@
                 // 当前等级对应的出生点列表（根据实际出生等级匹配种族出生点）
                 const currentSpawnPoints = computed(() => {
                     if (isAmberWorldview.value) return [];
-
-                    // 决定用哪套出生点数据
-                    let activeSpawnData;
-                    if (selectedWorldview.value === WORLDVIEW_CORRIDOR_ID && !enableDnfContent.value) {
-                        activeSpawnData = spawnPointDataNoDnf;
-                    } else {
-                        activeSpawnData = spawnPointData;
+                    if (selectedWorldview.value === WORLDVIEW_XGB_ID) {
+                        const level = actualStartLevel.value;
+                        const matchRace = availableRaces.value.find(r => r.startLevel === level && !r.disabled);
+                        const raceName = matchRace ? matchRace.name : '人类种';
+                        return ngnlSpawnPointData[raceName]?.出生点 || ngnlSpawnPointData['人类种'].出生点;
                     }
-
                     const level = actualStartLevel.value;
-                    const matchRace = availableRaces.value.find(r => r.startLevel === level && !r.disabled);
+                    const matchRace = mockData.races.find(r => r.startLevel === level && !r.disabled);
                     const raceName = matchRace ? matchRace.name : '人类种';
-                    return activeSpawnData[raceName]?.出生点 || activeSpawnData['人类种']?.出生点 || [];
+                    return spawnPointData[raceName]?.出生点 || spawnPointData['人类种'].出生点;
                 });
 
                 // 当出生点列表变化或进入角色创建时，自动选中推荐出生点
@@ -13853,10 +13801,10 @@
                 const worldviewOptions = Object.freeze([
                     {
                         id: WORLDVIEW_CORRIDOR_ID,
-                        name: '游戏人生',
-                        subtitle: '创世回廊',
+                        name: '创世回廊',
+                        subtitle: '迪司博德 × 阿拉德',
                         icon: 'fa-solid fa-khanda',
-                        desc: '以迪司博德与阿拉德交织而成的世界为舞台，邂逅十六种族，抛下命运的骰子吧——【向盟约宣誓】'
+                        desc: '以迪司博德与阿拉德大陆为舞台，邂逅十六种族，抛下命运的骰子吧——【向盟约宣誓】'
                     },
                     {
                         id: WORLDVIEW_SAO_ID,
@@ -13871,7 +13819,14 @@
                         subtitle: '秩序与黄昏',
                         iconPath: LEGENDARY_ENEMY_ICON_PATH,
                         desc: '王国倾覆，大地承载苦难，生灵在这火中忍受煎熬。手握星辰与命运的卡牌，持剑披荆而行，在文明的余烬中，重燃秩序的火种'
-                    }
+                    },
+                    {
+                        id: WORLDVIEW_XGB_ID,
+                        name: '游戏人生',
+                        subtitle: '迪斯博德',
+                        icon: 'ri-fire-fill',
+                        desc: '仅以迪司博德为舞台，用游戏决定一切。'
+                    },
                 ]);
                 const currentWorldviewInfo = computed(() =>
                     worldviewOptions.find(world => world.id === selectedWorldview.value) || null
@@ -13936,7 +13891,8 @@
                 ]);
                 const openingOptionsForWorldview = computed(() => {
                     if (!selectedWorldview.value) return [];
-                    return openingOptions.value.filter(opt => opt.worldviewId === selectedWorldview.value);
+                    const effectiveWorldview = selectedWorldview.value === WORLDVIEW_XGB_ID ? WORLDVIEW_CORRIDOR_ID : selectedWorldview.value;
+                    return openingOptions.value.filter(opt => opt.worldviewId === effectiveWorldview);
                 });
                 const selectedOpeningInfo = computed(() => openingOptions.value.find(opt => opt.id === selectedOpening.value) || null);
                 const isCustomOpeningSelected = computed(() => !!selectedOpeningInfo.value?.isCustom);
@@ -14508,8 +14464,6 @@
 
                 // 将角色数据写入MVU
                 const saveCharacterToMvu = async () => {
-                    const checkbox = document.querySelector('input[type="checkbox"][v-model="enableDnfContent"]');
-                    if (checkbox) enableDnfContent.value = checkbox.checked;
                     // 保存头像到浏览器缓存（确保状态栏能读取）
                     if (character.avatar) {
                         try { localStorage.setItem('rpg_player_avatar', character.avatar); } catch (err) { console.warn('[RPG开局] 头像存储失败:', err); }
@@ -14741,7 +14695,6 @@
                         mvuData.stat_data.系统配置.难度 = effectiveDifficultyKey.value || 'easy';
                         mvuData.stat_data.系统配置.难度名称 = (DIFF_PRESETS[effectiveDifficultyKey.value] || DIFF_PRESETS.easy).label;
                         mvuData.stat_data.系统配置.世界观 = currentWorldviewMvuLabel.value;
-                        mvuData.stat_data.系统配置.启用DNF副模式 = enableDnfContent.value;
                         const existingDialogueBeautify = Array.isArray(mvuData.stat_data.系统配置.对白美化)
                             ? mvuData.stat_data.系统配置.对白美化
                             : [];
@@ -15300,7 +15253,7 @@
                                             暴击伤害: 30
                                         },
                                         效果: '攻击检定+2;[星辉烙印] 当此剑命中目标时触发，于其身上烙下[流光层]：每层使该目标无法对爱弥斯隐匿，且爱弥斯对其攻击的暴击阈值-1，最多叠加3层(暴击阈值最多-3)，持续至战斗结束;[流光承启] 当持有者切换战斗形态时触发，剑身随之重塑——人形态化为流光重刺剑，机兵形态化为贯穿天幕的重长矛——并立即清算主目标身上累积的[流光层]：消耗N层造成[1000% + 25% × (等级-1)] × N÷3 光属性伤害(就近取整到10，满3层即满额)，触发后该目标流光层数清空;[星海归航] 附赠动作，发出一道流光锁定视野内一名友军，立即将其传送至爱弥斯身旁相邻位置，传送过程不触发借机攻击与陷阱。',
-                                        描述: '剑名"启明"，是爱弥斯于虚质空间深处独自漂泊十年时，从破碎数据流中以执念重塑而出的结晶。剑身缠绕着永不熄灭的星屑光华，跟随持有者情绪流转——平静如星河缓流，激战如流星迸射，懂得"频率"的存在能从中读出最深处的执念。会随持有者战斗形态自动变化：人形态时为流光重刺剑，启动隧者兵装变身机兵后则化作贯穿天幕的重长矛。当她心中浮现"想为某个人点亮归途"的念头时，剑芒在最深的黑夜中亦不熄灭——这是她对漂泊者无声的承诺。',
+                                        描述: '会随持有者战斗形态自动变化：人形态时为流光重刺剑，启动隧者兵装变身机兵后则化作贯穿天幕的重长矛。当她心中浮现"想为某个人点亮归途"的念头时，剑芒在最深的黑夜中亦不熄灭——这是她对漂泊者无声的承诺。',
                                         装备箱: false
                                     }
                                 },
@@ -15561,8 +15514,6 @@
 
                 // 按世界观处理世界书（名称匹配规则）：
                 // - 创世回廊：关闭 SAO/琥珀，打开 创世回廊/DNF/NGNL
-                // 副模式 DNF 开启：关闭 XGB；打开 NGNL 和 DNF
-                // 副模式 DNF 关闭：关闭 DNF、NGNL；打开 XGB
                 // - 刀剑神域：关闭 琥珀/DNF/NGNL，打开 创世回廊/SAO（并强制关闭地图世界书）
                 // - 琥珀之剑：关闭 创世回廊/SAO/DNF/NGNL，打开 全部带“琥珀”的世界书
                 // 注意：英文关键词仅按大写严格匹配（SAO/DNF/NGNL）
@@ -15574,17 +15525,31 @@
                     const TOKEN_NGNL = 'NGNL';
                     const TOKEN_AMBER = '琥珀';
                     const TOKEN_XGB = 'XGB';
+
                     const worldview = selectedWorldview.value || WORLDVIEW_CORRIDOR_ID;
                     const isCorridorOpening = worldview === WORLDVIEW_CORRIDOR_ID;
                     const mapWorldbookTarget = isCorridorOpening ? !!enableMapWorldbook.value : false;
-                    if (enableDnfContent.value) {
-                        openTokens = [TOKEN_CORRIDOR, TOKEN_NGNL, TOKEN_DNF];
-                        closeTokens = [TOKEN_XGB, TOKEN_AMBER, TOKEN_SAO];
+
+                    let openTokens = [];
+                    let closeTokens = [];
+
+                    if (worldview === WORLDVIEW_AMBER_ID) {
+                        openTokens = [TOKEN_AMBER];
+                        closeTokens = [TOKEN_CORRIDOR, TOKEN_SAO, TOKEN_DNF, TOKEN_NGNL, TOKEN_XGB];
+                    } else if (worldview === WORLDVIEW_SAO_ID) {
+                        openTokens = [TOKEN_CORRIDOR, TOKEN_SAO];
+                        closeTokens = [TOKEN_AMBER, TOKEN_DNF, TOKEN_NGNL, TOKEN_XGB];
+                    } else if (worldview === WORLDVIEW_XGB_ID) {
+                        openTokens = [TOKEN_XGB];
+                        closeTokens = [TOKEN_CORRIDOR, TOKEN_SAO, TOKEN_DNF, TOKEN_NGNL, TOKEN_AMBER];
                     } else {
-                        openTokens = [TOKEN_CORRIDOR, TOKEN_XGB];
-                        closeTokens = [TOKEN_DNF, TOKEN_NGNL, TOKEN_AMBER, TOKEN_SAO];
+                        openTokens = [TOKEN_CORRIDOR, TOKEN_DNF, TOKEN_NGNL];
+                        closeTokens = [TOKEN_SAO, TOKEN_AMBER, TOKEN_XGB];
                     }
 
+                    if (!isCorridorOpening && enableMapWorldbook.value) {
+                        enableMapWorldbook.value = false;
+                    }
 
                     try {
                         if (typeof getWorldbook !== 'function' || typeof replaceWorldbook !== 'function') {
@@ -15596,9 +15561,7 @@
                             const charWorldbooks = getCharWorldbookNames('current') || {};
                             if (charWorldbooks.primary) worldbookNameSet.add(charWorldbooks.primary);
                             if (Array.isArray(charWorldbooks.additional)) {
-                                charWorldbooks.additional.forEach(name => {
-                                    if (name) worldbookNameSet.add(name);
-                                });
+                                charWorldbooks.additional.forEach(name => { if (name) worldbookNameSet.add(name); });
                             }
                         }
                         if (typeof getChatWorldbookName === 'function') {
@@ -15607,9 +15570,7 @@
                         }
                         if (typeof getGlobalWorldbookNames === 'function') {
                             const globalWorldbooks = getGlobalWorldbookNames() || [];
-                            globalWorldbooks.forEach(name => {
-                                if (name) worldbookNameSet.add(name);
-                            });
+                            globalWorldbooks.forEach(name => { if (name) worldbookNameSet.add(name); });
                         }
                         const worldbookNames = Array.from(worldbookNameSet);
                         if (worldbookNames.length === 0) {
@@ -15634,8 +15595,6 @@
                                 let nextEnabled = entry.enabled;
                                 let entryChanged = false;
 
-                                // 世界观关键词命中时优先应用世界观规则。
-                                // 若同时命中“打开词”和“关闭词”，以“关闭词”优先，避免误开。
                                 if (hasAnyOpenToken || hasAnyCloseToken) {
                                     const worldviewTarget = hasAnyCloseToken ? false : true;
                                     if (nextEnabled !== worldviewTarget) {
@@ -15645,7 +15604,6 @@
                                     }
                                 }
 
-                                // 仅在未命中世界观关键词时，地图标签才按地图开关接管
                                 if (!hasAnyOpenToken && !hasAnyCloseToken && hasMapTag && nextEnabled !== mapWorldbookTarget) {
                                     nextEnabled = mapWorldbookTarget;
                                     entryChanged = true;
@@ -15667,9 +15625,11 @@
                         }
 
                         if (changed) {
-                            const worldviewLabel = worldview === WORLDVIEW_SAO_ID
-                                ? '刀剑神域'
-                                : (worldview === WORLDVIEW_AMBER_ID ? '琥珀之剑' : '创世回廊');
+                            let worldviewLabel = '';
+                            if (worldview === WORLDVIEW_SAO_ID) worldviewLabel = '刀剑神域';
+                            else if (worldview === WORLDVIEW_AMBER_ID) worldviewLabel = '琥珀之剑';
+                            else if (worldview === WORLDVIEW_XGB_ID) worldviewLabel = '游戏人生';
+                            else worldviewLabel = '创世回廊';
                             console.log(`[开局世界书] 已按${worldviewLabel}规则应用。涉及世界书=${changedWorldbookCount}/${worldbookNames.length}，变更数量：世界观规则=${worldviewRuleChanged}，地图=${mapChanged}`);
                         } else {
                             console.log('[开局世界书] 当前状态已符合规则，无需变更');
@@ -17283,7 +17243,7 @@ ${lockedSkillsJson}
                     showPresetModal, newPresetName, presetList,
                     savePreset, loadPreset, deletePreset, formatPresetDate, exportPresetJson, importPresetJson,
                     // 地图世界书
-                    enableDnfContent, enableMapWorldbook, applyMapWorldbook, showMapWorldbookOption,
+                    enableMapWorldbook, applyMapWorldbook, showMapWorldbookOption,
                     // 开局选择
                     worldviewOptions, currentWorldviewInfo, currentWorldviewLabel, selectedWorldview, selectWorldview,
                     openingOptions, openingOptionsForWorldview, selectedOpeningInfo, isCustomOpeningSelected,
