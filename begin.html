@@ -8826,6 +8826,40 @@
                                 </p>
                             </div>
 
+<!-- XGB 世界书开关 -->
+<div v-if="selectedWorldview === WORLDVIEW_XGB_ID" 
+     style="text-align:left; background:#f8f9fa; padding:20px; border-radius:12px; margin-top:15px; border:1px solid rgba(0,0,0,0.05);">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:1.1rem;">📖</span>
+            <h4 style="margin:0;">启用 XG🛹 世界书条目</h4>
+            <span style="font-size:0.75rem; background:rgba(108,92,231,0.15); color:#5b4bc4; padding:2px 8px; border-radius:10px; font-weight:600;">游戏人生专属</span>
+        </div>
+        <label style="display:flex; align-items:center; cursor:pointer; gap:8px; user-select:none;">
+            <div style="position:relative; width:44px; height:24px;">
+                <input type="checkbox" v-model="enableXgbWorldbook" 
+                       style="opacity:0; width:0; height:0; position:absolute;">
+                <div :style="{
+                    position:'absolute', inset:0, borderRadius:'12px', transition:'background 0.2s',
+                    background: enableXgbWorldbook ? 'var(--accent)' : '#dfe6e9'
+                }"></div>
+                <div :style="{
+                    position:'absolute', top:'3px', 
+                    left: enableXgbWorldbook ? '23px' : '3px',
+                    width:'18px', height:'18px', borderRadius:'50%', background:'white',
+                    boxShadow:'0 1px 4px rgba(0,0,0,0.2)', transition:'left 0.2s'
+                }"></div>
+            </div>
+            <span style="font-size:0.9rem; font-weight:600; color:var(--primary);">
+                {{ enableXgbWorldbook ? '已启用' : '已关闭' }}
+            </span>
+        </label>
+    </div>
+    <p style="font-size:0.82rem; color:var(--secondary); line-height:1.6; margin:0;">
+        启用后将打开包含 <strong>XG🛹</strong> 关键词的世界书条目。关闭后将禁用以节省 token。
+    </p>
+</div>
+
                             <div v-if="currentClassSkillTree && remainingRP >= 0 && remainingPoints <= 0"
                                 style="margin-top:30px; font-size:1.2rem; color:var(--success); font-weight:700;">
                                 准备就绪!
@@ -9141,6 +9175,7 @@
                 ];
                 const currentStep = ref(1);
                 const enableMapWorldbook = ref(false); // 地图世界书开关，默认关闭
+                const enableXgbWorldbook = ref(false); // 地图世界书开关，默认关闭
                 const DIFF_PRESETS = {
                     easy: { key: 'easy', label: '简单', icon: 'ri-emotion-happy-line', color: '#00b894', 杂兵: { 伤害倍率: 0.5, HP倍率: 0.5 }, 精锐: { 伤害倍率: 1, HP倍率: 1 }, 首领: { 伤害倍率: 1.5, HP倍率: 4 }, 领主: { 伤害倍率: 2, HP倍率: 12 }, 传奇: { 伤害倍率: 2, HP倍率: 24 } },
                     normal: { key: 'normal', label: '普通', icon: 'ri-emotion-normal-line', color: '#0984e3', 杂兵: { 伤害倍率: 1, HP倍率: 2 }, 精锐: { 伤害倍率: 1.5, HP倍率: 4 }, 首领: { 伤害倍率: 2, HP倍率: 10 }, 领主: { 伤害倍率: 2.5, HP倍率: 20 }, 传奇: { 伤害倍率: 3, HP倍率: 40 } },
@@ -12066,7 +12101,7 @@
                 const customOpeningText = ref('');
                 const isSaoOpeningSelected = computed(() => selectedWorldview.value === WORLDVIEW_SAO_ID);
                 const isAmberWorldview = computed(() => selectedWorldview.value === WORLDVIEW_AMBER_ID);
-                const showMapWorldbookOption = computed(() => selectedWorldview.value === WORLDVIEW_CORRIDOR_ID || selectedWorldview.value === WORLDVIEW_XGB_ID);
+                const showMapWorldbookOption = computed(() => selectedWorldview.value === WORLDVIEW_CORRIDOR_ID);
                 const AMBER_BLOCKED_SPAWN_IDS = new Set([
                     'under_haim',
                     'under_wangzhe_qiao',
@@ -17244,7 +17279,7 @@ ${lockedSkillsJson}
                     showPresetModal, newPresetName, presetList,
                     savePreset, loadPreset, deletePreset, formatPresetDate, exportPresetJson, importPresetJson,
                     // 地图世界书
-                    enableMapWorldbook, applyMapWorldbook, showMapWorldbookOption,
+                    enableMapWorldbook, enableXgbWorldbook, applyMapWorldbook, showMapWorldbookOption,
                     // 开局选择
                     worldviewOptions, currentWorldviewInfo, currentWorldviewLabel, selectedWorldview, selectWorldview,
                     openingOptions, openingOptionsForWorldview, selectedOpeningInfo, isCustomOpeningSelected,
