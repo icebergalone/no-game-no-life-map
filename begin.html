@@ -12066,7 +12066,7 @@
                 const customOpeningText = ref('');
                 const isSaoOpeningSelected = computed(() => selectedWorldview.value === WORLDVIEW_SAO_ID);
                 const isAmberWorldview = computed(() => selectedWorldview.value === WORLDVIEW_AMBER_ID);
-                const showMapWorldbookOption = computed(() => selectedWorldview.value === WORLDVIEW_CORRIDOR_ID);
+                const showMapWorldbookOption = computed(() => selectedWorldview.value === WORLDVIEW_CORRIDOR_ID || selectedWorldview.value === WORLDVIEW_XGB_ID);
                 const AMBER_BLOCKED_SPAWN_IDS = new Set([
                     'under_haim',
                     'under_wangzhe_qiao',
