@@ -14503,6 +14503,8 @@
 
                 // 将角色数据写入MVU
                 const saveCharacterToMvu = async () => {
+                    const checkbox = document.querySelector('input[type="checkbox"][v-model="enableDnfContent"]');
+                    if (checkbox) enableDnfContent.value = checkbox.checked;
                     // 保存头像到浏览器缓存（确保状态栏能读取）
                     if (character.avatar) {
                         try { localStorage.setItem('rpg_player_avatar', character.avatar); } catch (err) { console.warn('[RPG开局] 头像存储失败:', err); }
