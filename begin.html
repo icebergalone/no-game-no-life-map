@@ -8840,8 +8840,9 @@
                                     <label
                                         style="display:flex; align-items:center; cursor:pointer; gap:8px; user-select:none;">
                                         <div style="position:relative; width:44px; height:24px;">
-                                            <input type="checkbox" v-model="enableXgbWorldbook"
-                                                style="opacity:0; width:0; height:0; position:absolute;">
+<input type="checkbox" v-model="enableXgbWorldbook"
+       @change="applyXgbWorldbook(enableXgbWorldbook)"
+       style="opacity:0; width:0; height:0; position:absolute;">
                                             <div :style="{
                     position:'absolute', inset:0, borderRadius:'12px', transition:'background 0.2s',
                     background: enableXgbWorldbook ? 'var(--accent)' : '#dfe6e9'
@@ -12330,14 +12331,20 @@
                         selectedAmberCamp.value = groups[0].camp;
                     }
                 }, { immediate: true });
-                watch(selectedWorldview, (worldviewId) => {
-                    if (worldviewId !== WORLDVIEW_CORRIDOR_ID && enableMapWorldbook.value) {
-                        enableMapWorldbook.value = false;
-                    }
-                    if (worldviewId !== WORLDVIEW_XGB_ID && enableXgbWorldbook.value) {
-                        enableXgbWorldbook.value = false;
-                    }
-                }, { immediate: true });
+watch(selectedWorldview, async (worldviewId) => {
+    if (worldviewId !== WORLDVIEW_CORRIDOR_ID && enableMapWorldbook.value) {
+        enableMapWorldbook.value = false;
+        await applyMapWorldbook(false);
+    } else if (worldviewId === WORLDVIEW_CORRIDOR_ID && enableMapWorldbook.value) {
+        await applyMapWorldbook(true);
+    }
+    if (worldviewId !== WORLDVIEW_XGB_ID && enableXgbWorldbook.value) {
+        enableXgbWorldbook.value = false;
+        await applyXgbWorldbook(false);
+    } else if (worldviewId === WORLDVIEW_XGB_ID && enableXgbWorldbook.value) {
+        await applyXgbWorldbook(true);
+    }
+}, { immediate: true });
                 watch(selectedWorldview, (worldviewId, oldWorldviewId) => {
                     const racePool = availableRaces.value.filter(r => !r.disabled);
                     const hasCurrentRace = racePool.some(r => r.name === character.race);
