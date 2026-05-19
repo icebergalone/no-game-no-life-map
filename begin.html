@@ -10841,6 +10841,11 @@
 
                 // 应用配置到当前状态
                 const applyConfig = (config) => {
+                    if (config.enableDnfContent === undefined) {
+                        enableDnfContent.value = false;
+                    } else {
+                        enableDnfContent.value = config.enableDnfContent;
+                    }
                     if (!config) return;
 
                     const detectedPresetMode = detectPresetModeFromConfig(config);
