@@ -8826,39 +8826,42 @@
                                 </p>
                             </div>
 
-<!-- XGB 世界书开关 -->
-<div v-if="selectedWorldview === WORLDVIEW_XGB_ID" 
-     style="text-align:left; background:#f8f9fa; padding:20px; border-radius:12px; margin-top:15px; border:1px solid rgba(0,0,0,0.05);">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-        <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:1.1rem;">📖</span>
-            <h4 style="margin:0;">启用 🛹 世界书条目</h4>
-            <span style="font-size:0.75rem; background:rgba(108,92,231,0.15); color:#5b4bc4; padding:2px 8px; border-radius:10px; font-weight:600;">游戏人生专属</span>
-        </div>
-        <label style="display:flex; align-items:center; cursor:pointer; gap:8px; user-select:none;">
-            <div style="position:relative; width:44px; height:24px;">
-                <input type="checkbox" v-model="enableXgbWorldbook" 
-                       style="opacity:0; width:0; height:0; position:absolute;">
-                <div :style="{
+                            <!-- XGB 世界书开关 -->
+                            <div v-if="selectedWorldview === WORLDVIEW_XGB_ID"
+                                style="text-align:left; background:#f8f9fa; padding:20px; border-radius:12px; margin-top:15px; border:1px solid rgba(0,0,0,0.05);">
+                                <div
+                                    style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <span style="font-size:1.1rem;">📖</span>
+                                        <h4 style="margin:0;">启用 🛹 世界书条目</h4>
+                                        <span
+                                            style="font-size:0.75rem; background:rgba(108,92,231,0.15); color:#5b4bc4; padding:2px 8px; border-radius:10px; font-weight:600;">游戏人生专属</span>
+                                    </div>
+                                    <label
+                                        style="display:flex; align-items:center; cursor:pointer; gap:8px; user-select:none;">
+                                        <div style="position:relative; width:44px; height:24px;">
+                                            <input type="checkbox" v-model="enableXgbWorldbook"
+                                                style="opacity:0; width:0; height:0; position:absolute;">
+                                            <div :style="{
                     position:'absolute', inset:0, borderRadius:'12px', transition:'background 0.2s',
                     background: enableXgbWorldbook ? 'var(--accent)' : '#dfe6e9'
                 }"></div>
-                <div :style="{
+                                            <div :style="{
                     position:'absolute', top:'3px', 
                     left: enableXgbWorldbook ? '23px' : '3px',
                     width:'18px', height:'18px', borderRadius:'50%', background:'white',
                     boxShadow:'0 1px 4px rgba(0,0,0,0.2)', transition:'left 0.2s'
                 }"></div>
-            </div>
-            <span style="font-size:0.9rem; font-weight:600; color:var(--primary);">
-                {{ enableXgbWorldbook ? '已启用' : '已关闭' }}
-            </span>
-        </label>
-    </div>
-    <p style="font-size:0.82rem; color:var(--secondary); line-height:1.6; margin:0;">
-        启用后将打开包含 <strong>🛹</strong> 关键词的世界书条目。关闭后将禁用以节省 token。
-    </p>
-</div>
+                                        </div>
+                                        <span style="font-size:0.9rem; font-weight:600; color:var(--primary);">
+                                            {{ enableXgbWorldbook ? '已启用' : '已关闭' }}
+                                        </span>
+                                    </label>
+                                </div>
+                                <p style="font-size:0.82rem; color:var(--secondary); line-height:1.6; margin:0;">
+                                    启用后将打开包含 <strong>🛹</strong> 关键词的世界书条目。关闭后将禁用以节省 token。
+                                </p>
+                            </div>
 
                             <div v-if="currentClassSkillTree && remainingRP >= 0 && remainingPoints <= 0"
                                 style="margin-top:30px; font-size:1.2rem; color:var(--success); font-weight:700;">
@@ -12331,6 +12334,9 @@
                     if (worldviewId !== WORLDVIEW_CORRIDOR_ID && enableMapWorldbook.value) {
                         enableMapWorldbook.value = false;
                     }
+                    if (worldviewId !== WORLDVIEW_XGB_ID && enableXgbWorldbook.value) {
+                        enableXgbWorldbook.value = false;
+                    }
                 }, { immediate: true });
                 watch(selectedWorldview, (worldviewId, oldWorldviewId) => {
                     const racePool = availableRaces.value.filter(r => !r.disabled);
@@ -15545,6 +15551,35 @@
                         }
                     } catch (e) {
                         console.error('[地图世界书] 操作失败:', e);
+                    }
+                }
+
+                async function applyXgbWorldbook(enable) {
+                    const XGB_TAGS = ['🛹'];
+                    try {
+                        let wb = null;
+                        if (typeof getCharWorldbookNames === 'function') {
+                            wb = getCharWorldbookNames('current').primary;
+                        }
+                        if (!wb) return;
+                        if (typeof getWorldbook !== 'function' || typeof replaceWorldbook !== 'function') return;
+                        const allEntries = await getWorldbook(wb);
+                        let changed = false;
+                        const updated = allEntries.map(entry => {
+                            if (entry.name && XGB_TAGS.some(tag => entry.name.includes(tag))) {
+                                if (entry.enabled !== enable) {
+                                    changed = true;
+                                    return { ...entry, enabled: enable };
+                                }
+                            }
+                            return entry;
+                        });
+                        if (changed) {
+                            await replaceWorldbook(wb, updated);
+                            console.log(`[XGB世界书] 已${enable ? '启用' : '关闭'}相关条目`);
+                        }
+                    } catch (e) {
+                        console.error('[XGB世界书] 操作失败:', e);
                     }
                 }
 
